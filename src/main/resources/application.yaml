@@ -1,3 +1,8 @@
 spring:
   application:
     name: SpringFirstProject
+
+jwt:
+  secret-key: gautam-secret-key
+  timeout: 1111
+  refresh-timeout: 11111

@@ -15,14 +15,22 @@ public class UserService {
     public UserService(UserRepository userRepository) {
     this.userRepository = userRepository;
     }
-    public List<Map<String,String>> getUsers()throws Exception{
-        
+    public List<UserEntity> getUsers()throws Exception{
         return userRepository.getAll();
     }
-    public void saveUser(Map<String,String> userData){
+    public void saveUser(UserEntity userData){
         System.out.println("Data receive int service layer "+userData );
-        //respository ko data send krna tha 
         userRepository.save(userData);
-
+    }
+    public UserEntity updateUserService(UserEntity userEntity) throws Exception {
+         if(userEntity.getId()<=0)
+            throw new Exception("Invalid user id ");
+        else if(userEntity.getPassword().trim().equals(""))
+            throw new Exception("No password ");
+        else if(userEntity.getUsername().trim().equals(""))
+            throw new Exception("No username ");
+        else{
+            return userRepository.updateUserRepo(userEntity);
+        }
     }
 }

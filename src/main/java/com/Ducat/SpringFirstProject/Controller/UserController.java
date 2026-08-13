@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Ducat.SpringFirstProject.Entity.UserEntity;
 import com.Ducat.SpringFirstProject.Service.UserService;
 
 @RestController
@@ -25,13 +26,17 @@ public class UserController {
         this.userService=userServiceBean;
     }
     @GetMapping("/getAll")
-    public List<Map<String,String>> dashBoardEndpoint() throws Exception{
+    public List<UserEntity> dashBoardEndpoint() throws Exception{
         System.out.println("inside getAll "+userService.getUsers());
         return  userService.getUsers();
     }
+    @PostMapping("/update")
+    public UserEntity updateEndpoing(@RequestBody UserEntity userEntity) throws Exception{
+        return userService.updateUserService(userEntity);
+    }
     /**
      * http://localhost:8080/user/get
-     * @return
+     * 
      */
     @GetMapping("/get")
     public String getEndpoint(){
@@ -39,10 +44,10 @@ public class UserController {
     }
     /**
      * http://localhost:8080/user/signUp
-     * @return
+     * 
      */
     @PostMapping("/signUp")
-    public void signUpEndpoing(@RequestBody Map<String,String> userDataSent){
+    public void signUpEndpoing(@RequestBody UserEntity userDataSent){
          ;
         System.out.println("data receive in controller layer "+userDataSent);
          userService.saveUser(userDataSent);

@@ -13,10 +13,7 @@ public class SpringFirstProjectApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context=SpringApplication.run(SpringFirstProjectApplication.class, args);
 
-		JwtProperties jwtPropertiesBea=context.getBean(JwtProperties.class);
-		System.out.println(	
-			jwtPropertiesBea.getRefreshTimeout()+" "+jwtPropertiesBea.getSecretKey()+" "+jwtPropertiesBea.getTimeout()
-		);
+		
 	}
 
 }

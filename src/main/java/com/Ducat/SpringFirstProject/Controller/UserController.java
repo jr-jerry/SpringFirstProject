@@ -9,9 +9,11 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Ducat.SpringFirstProject.Entity.UserEntity;
@@ -25,31 +27,17 @@ public class UserController {
     public UserController(UserService userServiceBean){
         this.userService=userServiceBean;
     }
+    @DeleteMapping("/delete")
+    public void deleteEndpoint(@RequestParam int Id) throws Exception{
+        userService.deleteUserService(Id);
+    }
     @GetMapping("/getAll")
     public List<UserEntity> dashBoardEndpoint() throws Exception{
-        System.out.println("inside getAll "+userService.getUsers());
         return  userService.getUsers();
     }
-    @PostMapping("/update")
-    public UserEntity updateEndpoing(@RequestBody UserEntity userEntity) throws Exception{
-        return userService.updateUserService(userEntity);
-    }
-    /**
-     * http://localhost:8080/user/get
-     * 
-     */
-    @GetMapping("/get")
-    public String getEndpoint(){
-        return "userController working";
-    }
-    /**
-     * http://localhost:8080/user/signUp
-     * 
-     */
     @PostMapping("/signUp")
     public void signUpEndpoing(@RequestBody UserEntity userDataSent){
-         ;
-        System.out.println("data receive in controller layer "+userDataSent);
+ 
          userService.saveUser(userDataSent);
     }
 }
